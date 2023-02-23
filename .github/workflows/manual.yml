@@ -1,0 +1,77 @@
+name: Build Branch & Upload
+# Runs build and uploads to Dummy Channel on App Center for the provided Build Flavor and Variant
+# Build is ran based on branch, flavor, and variant provided.
+on:
+  workflow_dispatch:
+    inputs:
+      variant:
+        type: choice
+        description: Build Type
+        options:
+          - Debug
+          - Release
+      flavor:
+        type: choice
+        description: Build Flavor
+        options:
+          - Tst
+          - TstZh
+          - Uat2
+          - Uat2Zh
+          - Prod
+          - ProdZh
+      appdomeinput:
+        type: boolean
+        description: AppDome Build
+        default: false
+
+env:
+  changeLog: changes.txt
+  build_output: app/build/outputs/apk/one${{inputs.flavor}}/${{inputs.variant}}
+  ANDROID_HOME: /Users/rzmud035/Library/Android/sdk
+  appCenterChannel: 'Marriott-International-1/Android-Dummy'
+  distGroup: 'Collaborators, Devs_Android, ProgramTeamExtended, QANew'
+  appCenterToken: ${{secrets.APPCENTER_TOKEN}}
+  AppdomeFusionSetId: '004cb060-ebfa-11ec-9807-dd24cd4d5f3e'
+  AppdomeTeamId: 'ff50c430-ebf9-11ec-9807-dd24cd4d5f3e'
+  AppdomeFusionSetName: 'v10.0-Regression'
+  AppdomeTeamName: 'Marriott Bonvoy Android - Release & Regression'
+  buildNumberBase: 1250
+  #NODE_TLS_REJECT_UNAUTHORIZED: 0
+  runAppDome: ${{ inputs.appdomeinput}}
+jobs:
+  build:
+    runs-on: [ self-hosted, AWS-Mac-Android ]
+    steps:
+      - shell: bash
+        run: |
+          echo "Setting Env"
+          pwd
+          echo "branchName=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV        
+          echo "NODE_EXTRA_CA_CERTS=.github/scripts/marriott_cacerts.pem" >> $GITHUB_ENV   
+          echo "Env Set"
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{env.branchName}}          
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16    
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        #if: ${{ false }}
+        run: chmod +x gradlew
+
+      - name: Create Change Log
+        if: ${{ false }}
+        run: |
+          "${{github.workspace}}/.github/scripts/generate_recent_changes.sh" -c "" -C "Adhoc Build ran by ${{ github.actor }}" -C "${appDomeChangeLog}" -o "${changeLog}"
+
+      - name: Build Dummy with Gradle
+        #if: ${{ false }}
+        run: ./gradlew build
