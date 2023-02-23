@@ -27,18 +27,8 @@ on:
 
 env:
   changeLog: changes.txt
-  build_output: app/build/outputs/apk/one${{inputs.flavor}}/${{inputs.variant}}
   ANDROID_HOME: /Users/rzmud035/Library/Android/sdk
-  appCenterChannel: 'Marriott-International-1/Android-Dummy'
-  distGroup: 'Collaborators, Devs_Android, ProgramTeamExtended, QANew'
-  appCenterToken: ${{secrets.APPCENTER_TOKEN}}
-  AppdomeFusionSetId: '004cb060-ebfa-11ec-9807-dd24cd4d5f3e'
-  AppdomeTeamId: 'ff50c430-ebf9-11ec-9807-dd24cd4d5f3e'
-  AppdomeFusionSetName: 'v10.0-Regression'
-  AppdomeTeamName: 'Marriott Bonvoy Android - Release & Regression'
-  buildNumberBase: 1250
-  #NODE_TLS_REJECT_UNAUTHORIZED: 0
-  runAppDome: ${{ inputs.appdomeinput}}
+
 jobs:
   build:
     runs-on: [ self-hosted, AWS-Mac-Android ]
