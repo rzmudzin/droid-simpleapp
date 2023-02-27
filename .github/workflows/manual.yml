@@ -61,7 +61,10 @@ jobs:
       - name: Grant execute permission for gradlew
         #if: ${{ false }}
         run: |
-             ./github/scripts/split-cert.sh
+             pwd
+             ls -lah 
+             find . -name split-cert.sh
+             ./.github/scripts/split-cert.sh
              chmod +x gradlew
 
       - name: Create Change Log
