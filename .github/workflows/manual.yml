@@ -69,4 +69,7 @@ jobs:
 
       - name: Build Dummy with Gradle
         #if: ${{ false }}
-        run: ./gradlew build
+        run: |
+             ./gradlew clean
+             find . -name "*.apk"
+             ./gradlew build
