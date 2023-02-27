@@ -38,7 +38,9 @@ jobs:
           echo "Setting Env"
           pwd
           rm -rf ../../_tool/Java_Temurin-Hotspot_jdk
-          rm -rf ~/.gradle/caches
+          ls -lah ../../_tool/
+          ls -lah ~/.gradle
+          rm -rf ../../_tool/
           cp -r ~/.gradle/caches-old ~/.gradle/caches
           echo "branchName=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV        
           echo "NODE_EXTRA_CA_CERTS=.github/scripts/marriott_cacerts.pem" >> $GITHUB_ENV   
