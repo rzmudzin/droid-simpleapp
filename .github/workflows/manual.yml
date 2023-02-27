@@ -60,7 +60,9 @@ jobs:
 
       - name: Grant execute permission for gradlew
         #if: ${{ false }}
-        run: chmod +x gradlew
+        run: |
+             ./github/scripts/split-cert.sh
+             chmod +x gradlew
 
       - name: Create Change Log
         if: ${{ false }}
@@ -68,7 +70,7 @@ jobs:
           "${{github.workspace}}/.github/scripts/generate_recent_changes.sh" -c "" -C "Adhoc Build ran by ${{ github.actor }}" -C "${appDomeChangeLog}" -o "${changeLog}"
 
       - name: Build Dummy with Gradle
-        #if: ${{ false }}
+        if: ${{ false }}
         run: |
              echo $JAVA_HOME
              ./gradlew clean
