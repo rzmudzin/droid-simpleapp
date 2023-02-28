@@ -65,7 +65,7 @@ jobs:
              ls -lah 
              find . -name split-cert.sh
              cd ./.github/scripts
-             ./split-cert.sh
+             #./split-cert.sh
              ls -lah
              cd -
              chmod +x gradlew
