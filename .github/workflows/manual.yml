@@ -65,7 +65,7 @@ jobs:
              ls -lah 
              find . -name split-cert.sh
              cd ./.github/scripts
-             #./split-cert.sh
+             ./split-cert.sh
              ls -lah
              cd -
              chmod +x gradlew
@@ -82,3 +82,10 @@ jobs:
              ./gradlew clean
              find . -name "*.apk"
              ./gradlew build
+             find . -name "*.apk" > results-apk.txt
+      - name: Upload Results
+        #if: ${{ false }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: results-apk
+          path: results-apk.txt             
