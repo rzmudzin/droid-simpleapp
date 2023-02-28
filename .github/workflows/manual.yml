@@ -87,8 +87,8 @@ jobs:
         run: |
           "${{github.workspace}}/.github/scripts/generate_recent_changes.sh" -c "" -C "Adhoc Build ran by ${{ github.actor }}" -C "${appDomeChangeLog}" -o "${changeLog}"
           
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+      #- name: Setup Android SDK
+      #  uses: android-actions/setup-android@v2
   
       - name: Build Dummy with Gradle
         #if: ${{ false }}
