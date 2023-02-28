@@ -27,7 +27,7 @@ on:
 
 env:
   changeLog: changes.txt
-  ANDROID_HOME: /Users/rzmud035/Library/Android/sdk
+  #ANDROID_HOME: /Users/rzmud035/Library/Android/sdk
 
 jobs:
   build:
@@ -39,9 +39,9 @@ jobs:
           pwd
           rm -rf ../../_tool/Java_Temurin-Hotspot_jdk
           ls -lah ../../_tool/
-          #rm -rf ~/.gradle/caches
-          #ls -lah ~/.gradle          
-          #cp -r ~/.gradle/caches-old ~/.gradle/caches
+          rm -rf ~/.gradle/caches
+          ls -lah ~/.gradle          
+          cp -r ~/.gradle/caches-old ~/.gradle/caches
           echo "branchName=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV        
           echo "NODE_EXTRA_CA_CERTS=.github/scripts/marriott_cacerts.pem" >> $GITHUB_ENV   
           echo "Env Set"
@@ -62,3 +62,37 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2          
+
+      - name: Grant execute permission for gradlew
+        #if: ${{ false }}
+        run: |
+             pwd
+             ls -lah 
+             find . -name split-cert.sh
+             cd ./.github/scripts
+             ./split-cert.sh
+             ls -lah
+             cd -
+             chmod +x gradlew
+      - name: Create Change Log
+        if: ${{ false }}
+        run: |
+          "${{github.workspace}}/.github/scripts/generate_recent_changes.sh" -c "" -C "Adhoc Build ran by ${{ github.actor }}" -C "${appDomeChangeLog}" -o "${changeLog}"
+          
+      #- name: Setup Android SDK
+      #  uses: android-actions/setup-android@v2
+  
+      - name: Build Dummy with Gradle
+        #if: ${{ false }}
+        run: |
+             echo $JAVA_HOME
+             ./gradlew clean
+             find . -name "*.apk"
+             ./gradlew build
+             find . -name "*.apk" > results-apk.txt
+      - name: Upload Results
+        #if: ${{ false }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: results-apk
+          path: results-apk.txt  
