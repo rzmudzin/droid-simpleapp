@@ -1,0 +1,66 @@
+name: Build Branch II
+# Runs build and uploads to Dummy Channel on App Center for the provided Build Flavor and Variant
+# Build is ran based on branch, flavor, and variant provided.
+on:
+  workflow_dispatch:
+    inputs:
+      variant:
+        type: choice
+        description: Build Type
+        options:
+          - Debug
+          - Release
+      flavor:
+        type: choice
+        description: Build Flavor
+        options:
+          - Tst
+          - TstZh
+          - Uat2
+          - Uat2Zh
+          - Prod
+          - ProdZh
+      appdomeinput:
+        type: boolean
+        description: AppDome Build
+        default: false
+
+env:
+  changeLog: changes.txt
+  ANDROID_HOME: /Users/rzmud035/Library/Android/sdk
+
+jobs:
+  build:
+    runs-on: [ self-hosted, AWS-Mac-Android ]
+    steps:   
+      - shell: bash
+        run: |
+          echo "Setting Env"
+          pwd
+          rm -rf ../../_tool/Java_Temurin-Hotspot_jdk
+          ls -lah ../../_tool/
+          rm -rf ~/.gradle/caches
+          ls -lah ~/.gradle          
+          cp -r ~/.gradle/caches-old ~/.gradle/caches
+          echo "branchName=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV        
+          echo "NODE_EXTRA_CA_CERTS=.github/scripts/marriott_cacerts.pem" >> $GITHUB_ENV   
+          echo "Env Set"
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{env.branchName}}          
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16    
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+        # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
+        # Required, if the artifact is from a different repo
+        # Required, if the repo is private a Personal Access Token with `repo` scope is needed
+         github_token: ${{secrets.GITHUB_TOKEN}}
+         # Optional, workflow file name or ID
+         # If not specified, will be inferred from run_id (if run_id is specified), or will be the current workflow
+         #workflow: composite-workflow.yml
+         name: results-apk    
