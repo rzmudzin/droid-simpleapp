@@ -59,10 +59,7 @@ jobs:
         with:
           java-version: 18.0.2+9
           distribution: 'temurin'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2          
-
+          
       - name: Grant execute permission for gradlew
         #if: ${{ false }}
         run: |
@@ -73,7 +70,11 @@ jobs:
              ./split-cert.sh
              ls -lah
              cd -
-             chmod +x gradlew
+             chmod +x gradlew          
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2          
+
       - name: Create Change Log
         if: ${{ false }}
         run: |
