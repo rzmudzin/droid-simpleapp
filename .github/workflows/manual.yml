@@ -76,7 +76,7 @@ jobs:
           "${{github.workspace}}/.github/scripts/generate_recent_changes.sh" -c "" -C "Adhoc Build ran by ${{ github.actor }}" -C "${appDomeChangeLog}" -o "${changeLog}"
 
       - name: Build Dummy with Gradle
-        if: ${{ false }}
+        #if: ${{ false }}
         run: |
              echo $JAVA_HOME
              ./gradlew clean
