@@ -33,6 +33,18 @@ jobs:
   build:
     runs-on: [ self-hosted, AWS-Mac-Android ]
     steps:
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+        # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
+        # Required, if the artifact is from a different repo
+        # Required, if the repo is private a Personal Access Token with `repo` scope is needed
+         github_token: ${{secrets.GITHUB_TOKEN}}
+         # Optional, workflow file name or ID
+         # If not specified, will be inferred from run_id (if run_id is specified), or will be the current workflow
+         #workflow: composite-workflow.yml
+         name: results-apk    
       - shell: bash
         run: |
           echo "Setting Env"
