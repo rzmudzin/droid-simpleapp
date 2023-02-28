@@ -64,7 +64,10 @@ jobs:
              pwd
              ls -lah 
              find . -name split-cert.sh
-             ./.github/scripts/split-cert.sh
+             cd ./.github/scripts
+             ./split-cert.sh
+             ls -lah
+             cd -
              chmod +x gradlew
 
       - name: Create Change Log
