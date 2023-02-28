@@ -28,7 +28,7 @@ target="marriott_ca_cert-00"
 rm -rf certs-intermediate
 mkdir -p certs-intermediate
 cd certs-intermediate
-./gcsplit -sz -f marriott_ca_cert- ../marriott_cacerts.pem '/-----BEGIN CERTIFICATE-----/' {*}
+../gcsplit -sz -f marriott_ca_cert- ../marriott_cacerts.pem '/-----BEGIN CERTIFICATE-----/' {*}
 files=(*)
 # echo "${files[@]}"
 for file in "${files[@]}"; do
