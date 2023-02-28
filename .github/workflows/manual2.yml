@@ -37,8 +37,9 @@ jobs:
         run: |
           echo "Setting Env"
           pwd
+          ls -lah ../../_tool/
           rm -rf ../../_tool/Java_Temurin-Hotspot_jdk
-          #ls -lah ../../_tool/
+          ls -lah ../../_tool/
           #rm -rf ~/.gradle/caches
           #ls -lah ~/.gradle          
           #cp -r ~/.gradle/caches-old ~/.gradle/caches
