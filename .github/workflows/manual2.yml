@@ -39,8 +39,8 @@ jobs:
           pwd
           rm -rf ../../_tool/Java_Temurin-Hotspot_jdk
           ls -lah ../../_tool/
-          rm -rf ~/.gradle/caches
-          ls -lah ~/.gradle          
+          #rm -rf ~/.gradle/caches
+          #ls -lah ~/.gradle          
           cp -r ~/.gradle/caches-old ~/.gradle/caches
           echo "branchName=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV        
           echo "NODE_EXTRA_CA_CERTS=.github/scripts/marriott_cacerts.pem" >> $GITHUB_ENV   
