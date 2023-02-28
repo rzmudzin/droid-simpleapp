@@ -4,7 +4,8 @@ echo "$JAVA_HOME"
 
 # caCertsPath="../../../../_tool/Java_Temurin-Hotspot_jdk/11.0.18-10/arm64/Contents/Home/lib/security/cacerts"
 #caCertsPath="/Users/rzmud035/actions-runner-droid-simpleapp/_work/_tool/Java_Temurin-Hotspot_jdk/11.0.18-10/arm64/Contents/Home/lib/security/cacerts"
-caCertsPath="/Users/rzmud035/actions-runner-droid-simpleapp/_work/_tool/Java_Temurin-Hotspot_jdk/18.0.2-9/arm64/Contents/Home/lib/security/cacerts"
+#caCertsPath="/Users/rzmud035/actions-runner-droid-simpleapp/_work/_tool/Java_Temurin-Hotspot_jdk/18.0.2-9/arm64/Contents/Home/lib/security/cacerts"
+caCertsPath="$JAVA_HOME/lib/security/cacerts"
 
 IFS=$'\n'
 aliasKey="Alias name:"
