@@ -172,6 +172,7 @@ plugins {
     id 'com.android.application' version '7.3.1' apply false
     id 'com.android.library' version '7.3.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
+    id "org.sonarqube" version "3.5.0.2730"
 }
 
 allprojects {
@@ -192,3 +193,7 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//./gradlew sonar -Dsonar.projectKey=simple-droid -Dsonar.host.url=http://192.168.0.38:9000 -Dsonar.login=sqa_4eb7cc1e10f388c1a71d71d2b437db6e43ae513e
+// ./gradlew sonar -Dsonar.projectKey=bmad -Dsonar.host.url=https://sonarqube.tools.marriott.com -Dsonar.login=39a6f7b104288c36824fb41e0673b008bbef0c73
+//project.tasks["sonar"].dependsOn "assemble"
